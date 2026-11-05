@@ -247,12 +247,16 @@ export class App {
                 bodyFields: ["ServiceStatus"],
                 colSize: Strings.TileColumnSize,
                 filterFields: ["ServiceStatus"],
-                paginationLimit: Strings.TilePageSize,
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
                 showPagination: !Strings.OnlyTiles,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
+                onRendering: (props) => {
+                    // Defer the rendering
+                    props.deferRender = true;
+                    return props;
+                },
                 onBodyRendered: (el, item: IListItem) => {
                     let text = el.querySelector("div.card-text") as HTMLDivElement;
                     if (text) {
@@ -284,11 +288,6 @@ export class App {
                         target: icon as any
                     });
                     el.appendChild(icon);
-                },
-                onPaginationRendered: (el) => {
-                    let nav = el.querySelector("nav") as HTMLElement;
-                    nav ? nav.classList.remove("pt-2") : null;
-                    nav ? nav.classList.add("pt-3") : null;
                 },
                 onSubTitleRendered: (el, item: IListItem) => {
                     // Clear the element

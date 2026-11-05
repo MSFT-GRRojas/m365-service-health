@@ -249,7 +249,6 @@ export class App {
                 filterFields: ["ServiceStatus"],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
-                showPagination: !Strings.OnlyTiles,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
                 onRendering: (props) => {

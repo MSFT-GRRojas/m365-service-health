@@ -7,7 +7,6 @@
         --bs-card-border-width: 2px;
         --bs-card-spacer-y: .5rem;
         --bs-card-title-spacer-y: 1.25rem;
-        margin-top: 1rem;
         min-height: 12.5rem;
     }
     .card-text p.small, .card-title {
@@ -37,7 +36,6 @@
         --bs-card-spacer-x: .5rem;
         --bs-card-spacer-y: .25rem;
         --bs-card-title-spacer-y: .25rem;
-        margin-top: .5rem;
         min-height: unset;
         .card-body {
             background-color: color-mix(in srgb, var(--sp-black, #000000), transparent 95%);

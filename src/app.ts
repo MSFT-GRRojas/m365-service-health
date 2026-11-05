@@ -238,7 +238,7 @@ export class App {
                 items: DataSource.getFilteredItems(),
                 bodyFields: ["ServiceStatus"],
                 colSize: Strings.TileColumnSize,
-                filterFields: ["ServiceStatus"],
+                filterFields: ["Status"],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
                 titleFields: ["Title"],

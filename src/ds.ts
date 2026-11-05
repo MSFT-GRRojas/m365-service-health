@@ -12,6 +12,8 @@ export interface IListItem extends Types.SP.ListItem {
     ServiceId: string;
     ServiceIssues: string;
     ServiceStatus: string;
+    Status: string;
+    Title: string;
 }
 
 /**
@@ -32,17 +34,18 @@ export class DataSource {
     }
 
     // Loads the list data
+    private static _items: IListItem[] = null;
     private static _list: List<IListItem> = null;
     static get List(): List<IListItem> { return this._list; }
-    static get ListItems(): IListItem[] { return this._list.Items; }
+    static get ListItems(): IListItem[] { return this._items; }
     static getFilteredItems(): IListItem[] {
         // See if we are showing all services
-        if (Strings.ShowServices == null || Strings.ShowServices == "[]") { return this.List.Items; }
+        if (Strings.ShowServices == null || Strings.ShowServices == "[]") { return this.ListItems; }
 
         // Parse the items
         let items: IListItem[] = [];
-        for (let i = 0; i < this.List.Items.length; i++) {
-            let item = this.List.Items[i];
+        for (let i = 0; i < this.ListItems.length; i++) {
+            let item = this.ListItems[i];
 
             // Parse the services to show
             if (Strings.ShowServices.indexOf(item.ServiceId) >= 0) {
@@ -57,6 +60,9 @@ export class DataSource {
     static load(): PromiseLike<void> {
         // Return a promise
         return new Promise((resolve, reject) => {
+            // Clear the items
+            this._items = [];
+
             // Initialize the list
             this._list = new List<IListItem>({
                 listName: Strings.Lists.Main,
@@ -76,6 +82,13 @@ export class DataSource {
 
                     // Resolve the request
                     resolve();
+                },
+                onItemLoading: item => {
+                    // Set the status
+                    item.Status = getStatusTitle(item.ServiceStatus);
+
+                    // Add the item
+                    this._items.push(item);
                 }
             });
         });

@@ -101,17 +101,9 @@ export class App {
                     header: "By Status",
                     items: DataSource.StatusFilters,
                     multi: true,
-                    onSetFilterValue: (values: string[], items: Components.ICheckboxGroupItem[]) => {
-                        let filterValues = [];
-
-                        // Parse the items
-                        for (let i = 0; i < items?.length; i++) {
-                            // Append the value
-                            filterValues.push(items[i].data);
-                        }
-
-                        // Return the filter values
-                        return filterValues;
+                    onFilter: (values: string[]) => {
+                        // Filter the data
+                        dashboard.filterMulti(0, values);
                     }
                 }]
             },
@@ -246,10 +238,9 @@ export class App {
                 items: DataSource.getFilteredItems(),
                 bodyFields: ["ServiceStatus"],
                 colSize: Strings.TileColumnSize,
-                filterFields: ["ServiceStatus"],
+                filterFields: ["Status"],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
-                showPagination: !Strings.OnlyTiles,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
                 onRendering: (props) => {

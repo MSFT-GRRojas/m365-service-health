@@ -7,6 +7,13 @@ const classificationDescription = new Map<string, string>([
     ["incident", "<b>Incident:</b> A critical service issue with noticeable user impact."]
 ]);
 
+const classificationRanking = new Map<string, number>([
+    ["advisory", 1],
+    ["error", 2],
+    ["healthy", 0],
+    ["incident", 3]
+]);
+
 const statusDescription = new Map<string, string>([
     ["serviceOperational", "The service is healthy and no issues have been identified."],
     ["investigating", "A potential issue was identified and more information is being gathered about what's going on and the scope of impact."],
@@ -39,6 +46,12 @@ const statusTitle = new Map<string, string>([
 export function getClassificationDescription(classification?: string) {
     // Return the classification description
     return (classification && classificationDescription.has(classification)) ? classificationDescription.get(classification) : classificationDescription.get('error');
+}
+
+// Returns a ranking based on classification
+export function getRanking(classification?: string) {
+    // Return the classification ranking
+    return (classification && classificationRanking.has(classification)) ? classificationRanking.get(classification) : 0;
 }
 
 // Returns an icon as an SVG element

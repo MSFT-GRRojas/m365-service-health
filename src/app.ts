@@ -103,7 +103,7 @@ export class App {
                     multi: true,
                     onFilter: (values: string[]) => {
                         // Filter the data
-                        dashboard.filterMulti(0, values);
+                        dashboard.filterMulti(1, values);
                     }
                 }]
             },
@@ -111,6 +111,9 @@ export class App {
                 onRendering: props => {
                     // Update the properties
                     props.className = "footer p-0";
+
+                    // Set the default order
+                    props.order = [[1, "desc"]];
                 },
                 onRendered: (el) => {
                     el.querySelector("nav.footer").classList.remove("bg-light");
@@ -238,7 +241,7 @@ export class App {
                 items: DataSource.getFilteredItems(),
                 bodyFields: ["ServiceStatus"],
                 colSize: Strings.TileColumnSize,
-                filterFields: ["Status"],
+                filterFields: ["Rank", "Status"],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
                 titleFields: ["Title"],

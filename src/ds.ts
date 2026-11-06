@@ -86,7 +86,7 @@ export class DataSource {
                 },
                 onItemLoading: item => {
                     // Set the rank & status
-                    item.Rank = getRank(item.ServiceStatus);
+                    item.Rank = getRanking(item.ServiceStatus);
                     item.Status = getStatusTitle(item.ServiceStatus);
 
                     // Add the item

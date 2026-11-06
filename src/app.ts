@@ -111,9 +111,6 @@ export class App {
                 onRendering: props => {
                     // Update the properties
                     props.className = "footer p-0";
-
-                    // Set the default order
-                    props.order = [[1, "desc"]];
                 },
                 onRendered: (el) => {
                     el.querySelector("nav.footer").classList.remove("bg-light");
@@ -249,6 +246,11 @@ export class App {
                 onRendering: (props) => {
                     // Defer the rendering
                     props.deferRender = true;
+
+                    // Set the default order
+                    props.order = [[1, "desc"]];
+
+                    // Return the properties
                     return props;
                 },
                 onBodyRendered: (el, item: IListItem) => {

@@ -238,6 +238,18 @@ export class App {
                 items: DataSource.getFilteredItems(),
                 bodyFields: ["ServiceStatus"],
                 colSize: Strings.TileColumnSize,
+                columnControls: [
+                    { order: true }, { searchList: true }
+                ],
+                columns: [
+                    {
+                        name: "Rank",
+                        visible: false
+                    },
+                    {
+                        name: "Status"
+                    }
+                ],
                 filterFields: ["Rank", "Status"],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,

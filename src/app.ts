@@ -158,6 +158,12 @@ export class App {
                     },
                     {
                         name: "Status"
+                    },
+                    {
+                        name: "Title"
+                    },
+                    {
+                        name: "ServiceStatus"
                     }
                 ],
                 showFooter: false,

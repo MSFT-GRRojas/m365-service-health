@@ -153,7 +153,8 @@ export class App {
                 columns: [
                     {
                         name: "Rank",
-                        order: "asc"
+                        order: "asc",
+                        visible: false
                     },
                     {
                         name: "Title",

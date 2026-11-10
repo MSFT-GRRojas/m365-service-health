@@ -153,7 +153,7 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
 
   protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
     if (propertyPath.indexOf("Service") === 0) {
-      const key = propertyPath.substring(3);
+      const key = propertyPath.substring(7);
       this.properties.services = this.properties.services || [];
       if (newValue) {
         // Add the value

@@ -92,7 +92,6 @@ export class App {
         let dashboard = new Dashboard({
             el,
             hideFooter: !Strings.IsClassic,
-            hideHeader: !Strings.OnlyTiles,
             hideNavigation: Strings.OnlyTiles,
             useModal: true,
             footer: {
@@ -164,8 +163,6 @@ export class App {
                         name: "Status"
                     }
                 ],
-                showFooter: false,
-                showHeader: !Strings.TileCompact,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
                 onBodyRendered: (el, item: IListItem) => {

@@ -152,7 +152,6 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
   protected get disableReactivePropertyChanges(): boolean { return true; }
 
   protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
-    debugger;
     if (propertyPath.indexOf("Service") === 0) {
       const key = propertyPath.substring(3);
       this.properties.services = this.properties.services || [];
@@ -170,7 +169,7 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
   }
 
   private generateServiceFields(): IPropertyPaneField<any>[] {
-    let fields: IPropertyPaneField<any>[] = [];
+    const fields: IPropertyPaneField<any>[] = [];
 
     // Parse the services
     this._serviceOptions.forEach(service => {

@@ -94,19 +94,7 @@ export class App {
             hideFooter: !Strings.IsClassic,
             hideHeader: !Strings.OnlyTiles,
             hideNavigation: Strings.OnlyTiles,
-            hideSubNavigation: Strings.OnlyTiles,
             useModal: true,
-            filters: {
-                items: [{
-                    header: "By Status",
-                    items: DataSource.StatusFilters,
-                    multi: true,
-                    onFilter: (values: string[]) => {
-                        // Filter the data
-                        dashboard.filterMulti(0, values);
-                    }
-                }]
-            },
             footer: {
                 onRendering: props => {
                     // Update the properties
@@ -120,43 +108,6 @@ export class App {
                     className: "pe-none text-body",
                     text: "v" + Strings.Version
                 }]
-            },
-            header: {
-                onRendered: (el) => {
-                    // Remove the margin
-                    el.classList.remove("mx-75");
-
-                    // Update the header
-                    let header = el.firstChild as HTMLDivElement;
-                    header.classList.remove("row");
-                    header.classList.remove("py-5");
-                    header.innerHTML = "";
-
-                    // Add a logo to the navbar brand
-                    let div = document.createElement("div");
-                    let icon = common.invertIconColor(common.getIcon(32, 32, 'ServiceHealth'));
-                    let text = div.cloneNode() as HTMLDivElement;
-                    div.className = "d-flex";
-                    text.className = "h5 ms-2";
-                    if (Strings.MoreInfo && common.isValidUrl(Strings.MoreInfo)) {
-                        // Render a tooltip to show more info
-                        let ttp = Components.Tooltip({
-                            el: text,
-                            content: Strings.MoreInfoTooltip ? Strings.MoreInfoTooltip : "View more information",
-                            btnProps: {
-                                href: Strings.MoreInfo,
-                                text: Strings.ProjectName,
-                                type: Components.ButtonTypes.Link,
-                            }
-                        });
-                        ttp.el.classList.remove("btn");
-                    } else {
-                        text.append(Strings.ProjectName);
-                    }
-                    div.appendChild(icon);
-                    div.appendChild(text);
-                    header.appendChild(div);
-                }
             },
             navigation: {
                 itemsEnd: this.generateNavItems(),
@@ -192,62 +143,31 @@ export class App {
                     }
                 }
             },
-            subNavigation: {
-                onRendering: props => {
-                    props.className = "navbar-sub rounded-bottom";
-                },
-                onRendered: (el) => {
-                    el.querySelector("nav.navbar").classList.remove("bg-light");
-                },
-                itemsEnd: [
-                    {
-                        text: "Filter Services",
-                        onRender: (el, item) => {
-                            // Clear the existing button
-                            el.innerHTML = "";
-                            // Create a span to wrap the icon in
-                            let span = document.createElement("span");
-                            span.className = "bg-white d-inline-flex ms-2 rounded";
-                            el.appendChild(span);
-
-                            // Render a tooltip
-                            Components.Tooltip({
-                                el: span,
-                                content: item.text,
-                                placement: Components.TooltipPlacements.Right,
-                                btnProps: {
-                                    // Render the icon button
-                                    className: "p-1 pe-2",
-                                    iconClassName: "me-1",
-                                    iconType: filterSquare,
-                                    iconSize: 24,
-                                    isSmall: true,
-                                    text: "Filters",
-                                    type: Components.ButtonTypes.OutlineSecondary,
-                                    onClick: () => {
-                                        // Show the filter
-                                        dashboard.showFilter();
-                                    }
-                                },
-                            });
-                        }
-                    }
-                ]
-            },
             tiles: {
                 items: DataSource.getFilteredItems(),
                 bodyFields: ["ServiceStatus"],
                 colSize: Strings.TileColumnSize,
-                filterFields: ["Status"],
+                columnControls: [
+                    { order: true }, { searchList: true }
+                ],
+                columns: [
+                    {
+                        name: "Rank",
+                        order: "asc",
+                        visible: false
+                    },
+                    {
+                        name: "Title",
+                        order: "asc"
+                    },
+                    {
+                        name: "Status"
+                    }
+                ],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
-                onRendering: (props) => {
-                    // Defer the rendering
-                    props.deferRender = true;
-                    return props;
-                },
                 onBodyRendered: (el, item: IListItem) => {
                     let text = el.querySelector("div.card-text") as HTMLDivElement;
                     if (text) {

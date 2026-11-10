@@ -21,6 +21,20 @@ const statusDescription = new Map<string, string>([
     ["investigationSuspended", "If our detailed investigation of a potential issue results in a request for additional information from customers to allow the service team to investigate further, you'll see this status. If service team needs you to act, they'll let you know what data or logs they need."]
 ]);
 
+const statusRanking = new Map<string, number>([
+    ["serviceOperational", 100],
+    ["serviceDegradation", 90],
+    ["restoringService", 80],
+    ["extendedRecovery", 70],
+    ["investigating", 60],
+    ["investigationSuspended", 50],
+    ["verifyingService", 40],
+    ["serviceRestored", 30],
+    ["postIncidentReviewPublished", 20],
+    ["falsePositive", 10],
+    ["serviceInterruption", 0]
+]);
+
 const statusTitle = new Map<string, string>([
     ["serviceOperational", "Operational"],
     ["investigating", "Investigating"],
@@ -39,6 +53,12 @@ const statusTitle = new Map<string, string>([
 export function getClassificationDescription(classification?: string) {
     // Return the classification description
     return (classification && classificationDescription.has(classification)) ? classificationDescription.get(classification) : classificationDescription.get('error');
+}
+
+// Returns a ranking based on status
+export function getRanking(status?: string) {
+    // Return the classification ranking
+    return (status && statusRanking.has(status)) ? statusRanking.get(status) : 0;
 }
 
 // Returns an icon as an SVG element

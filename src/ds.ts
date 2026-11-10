@@ -1,6 +1,6 @@
 import { List } from "dattatable";
 import { Components, Types } from "gd-sprest-bs";
-import { getStatusTitle } from "./common";
+import { getRanking, getStatusTitle } from "./common";
 import { Security } from "./security";
 import Strings from "./strings";
 
@@ -9,6 +9,7 @@ import Strings from "./strings";
  * Add your custom fields here
  */
 export interface IListItem extends Types.SP.ListItem {
+    Rank: number;
     ServiceId: string;
     ServiceIssues: string;
     ServiceStatus: string;
@@ -84,7 +85,8 @@ export class DataSource {
                     resolve();
                 },
                 onItemLoading: item => {
-                    // Set the status
+                    // Set the rank & status
+                    item.Rank = getRanking(item.ServiceStatus);
                     item.Status = getStatusTitle(item.ServiceStatus);
 
                     // Add the item

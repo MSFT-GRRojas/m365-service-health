@@ -157,10 +157,12 @@ export class App {
                     },
                     {
                         name: "Title",
-                        order: "asc"
+                        order: "asc",
+                        visible: Strings.OnlyTiles ? false : true
                     },
                     {
-                        name: "Status"
+                        name: "Status",
+                        visible: Strings.OnlyTiles ? false : true
                     }
                 ],
                 titleFields: ["Title"],

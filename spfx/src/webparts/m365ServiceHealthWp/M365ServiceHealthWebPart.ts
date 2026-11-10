@@ -2,6 +2,7 @@ import { DisplayMode, Environment, Version } from '@microsoft/sp-core-library';
 import { IPropertyPaneConfiguration, IPropertyPaneDropdownOption, PropertyPaneDropdown, PropertyPaneHorizontalRule, PropertyPaneLabel, PropertyPaneLink, PropertyPaneSlider, PropertyPaneTextField, PropertyPaneToggle } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart, WebPartContext } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import { PropertyFieldMultiSelect } from '@pnp/spfx-property-controls/lib/PropertyFieldMultiSelect';
 import * as strings from 'M365ServiceHealthWebPartStrings';
 
 export interface IM365ServiceHealthWebPartProps {
@@ -10,7 +11,7 @@ export interface IM365ServiceHealthWebPartProps {
   moreInfo: string;
   moreInfoTooltip: string;
   onlyTiles: boolean;
-  showServices: string;
+  showServices: string[];
   tileColumnSize: number;
   tileCompact: boolean;
   tilePageSize: number;
@@ -188,7 +189,12 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
                   label: strings.TitleFieldLabel,
                   description: strings.TitleFieldDescription
                 }),
-                M365ServiceHealth.propertyPaneServices("showServices", strings.ShowServicesFieldLabel, this.properties)
+                PropertyFieldMultiSelect('showServices', {
+                  key: 'showServices',
+                  label: "Select Services",
+                  options: this._serviceOptions,
+                  selectedKeys: this.properties.showServices
+                })
               ]
             }
           ]

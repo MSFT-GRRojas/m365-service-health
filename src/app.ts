@@ -156,7 +156,8 @@ export class App {
                         order: "asc"
                     },
                     {
-                        name: "Title"
+                        name: "Title",
+                        order: "asc"
                     },
                     {
                         name: "Status"

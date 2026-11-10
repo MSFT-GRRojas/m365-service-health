@@ -7,13 +7,6 @@ const classificationDescription = new Map<string, string>([
     ["incident", "<b>Incident:</b> A critical service issue with noticeable user impact."]
 ]);
 
-const classificationRanking = new Map<string, number>([
-    ["advisory", 1],
-    ["error", 2],
-    ["healthy", 0],
-    ["incident", 3]
-]);
-
 const statusDescription = new Map<string, string>([
     ["serviceOperational", "The service is healthy and no issues have been identified."],
     ["investigating", "A potential issue was identified and more information is being gathered about what's going on and the scope of impact."],
@@ -26,6 +19,20 @@ const statusDescription = new Map<string, string>([
     ["extendedRecovery", "This status indicates that corrective action is in progress to restore the service to most users but will take some time to reach all the affected systems. You might also see this status if a temporary fix is made to reduce impact while a permanent fix is waiting to be applied."],
     ["falsePositive", "After a detailed investigation, the service is confirmed to be healthy and operating as designed. No impact to the service was observed or the cause of the incident originated outside of the service. Incidents and advisories with this status appear in the history view until they expire (after the period of time stated in the final post for that event)."],
     ["investigationSuspended", "If our detailed investigation of a potential issue results in a request for additional information from customers to allow the service team to investigate further, you'll see this status. If service team needs you to act, they'll let you know what data or logs they need."]
+]);
+
+const statusRanking = new Map<string, number>([
+    ["serviceOperational", 100],
+    ["serviceDegradation", 90],
+    ["restoringService", 80],
+    ["extendedRecovery", 70],
+    ["investigating", 60],
+    ["investigationSuspended", 50],
+    ["verifyingService", 40],
+    ["serviceRestored", 30],
+    ["postIncidentReviewPublished", 20],
+    ["falsePositive", 10],
+    ["serviceInterruption", 0]
 ]);
 
 const statusTitle = new Map<string, string>([
@@ -48,10 +55,10 @@ export function getClassificationDescription(classification?: string) {
     return (classification && classificationDescription.has(classification)) ? classificationDescription.get(classification) : classificationDescription.get('error');
 }
 
-// Returns a ranking based on classification
-export function getRanking(classification?: string) {
+// Returns a ranking based on status
+export function getRanking(status?: string) {
     // Return the classification ranking
-    return (classification && classificationRanking.has(classification)) ? classificationRanking.get(classification) : 0;
+    return (status && statusRanking.has(status)) ? statusRanking.get(status) : 0;
 }
 
 // Returns an icon as an SVG element

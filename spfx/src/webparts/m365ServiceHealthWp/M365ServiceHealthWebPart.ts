@@ -41,7 +41,7 @@ declare const M365ServiceHealth: {
     moreInfoTooltip?: string;
     onLoaded?: () => void;
     onlyTiles?: boolean;
-    showServices?: string;
+    showServices?: string[];
     tileColumnSize?: number;
     tileCompact?: boolean;
     tilePageSize?: number;

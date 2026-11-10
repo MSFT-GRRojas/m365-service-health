@@ -23,13 +23,11 @@ export interface IM365ServiceHealthWebPartProps {
 
 // Reference the solution
 import "main-lib";
-import { IBasePropertyPane } from 'gd-sprest-bs/src/propertyPane/types';
 declare const M365ServiceHealth: {
   description: string;
   getLogo: () => SVGImageElement;
   getServices: () => Map<string, string>;
   listName: string;
-  propertyPaneServices: (key: string, label: string, properties: IM365ServiceHealthWebPartProps) => IBasePropertyPane;
   render: (props: {
     el: HTMLElement;
     context?: WebPartContext;

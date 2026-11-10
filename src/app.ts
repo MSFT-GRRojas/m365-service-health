@@ -153,6 +153,7 @@ export class App {
                 columns: [
                     {
                         name: "Rank",
+                        order: "asc",
                         visible: false
                     },
                     {
@@ -163,16 +164,6 @@ export class App {
                 showHeader: !Strings.TileCompact,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
-                onRendering: (props) => {
-                    // Defer the rendering
-                    props.deferRender = true;
-
-                    // Set the default order
-                    props.order = [[2, "desc"]];
-
-                    // Return the properties
-                    return props;
-                },
                 onBodyRendered: (el, item: IListItem) => {
                     let text = el.querySelector("div.card-text") as HTMLDivElement;
                     if (text) {

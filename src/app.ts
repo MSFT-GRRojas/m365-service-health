@@ -157,13 +157,10 @@ export class App {
                         visible: false
                     },
                     {
-                        name: "Status"
-                    },
-                    {
                         name: "Title"
                     },
                     {
-                        name: "ServiceStatus"
+                        name: "Status"
                     }
                 ],
                 showFooter: false,

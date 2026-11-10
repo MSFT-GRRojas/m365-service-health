@@ -194,7 +194,6 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
           groups: [
             {
               groupName: "Basic Settings:",
-              isCollapsed: true,
               groupFields: [
                 PropertyPaneToggle('darkTheme', {
                   label: strings.DarkThemeFieldLabel,
@@ -228,7 +227,11 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
                   description: strings.TitleFieldDescription
                 })
               ]
-            },
+            }
+          ]
+        },
+        {
+          groups: [
             {
               groupName: "Services to Display",
               groupFields: this.generateServiceFields()

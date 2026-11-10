@@ -165,7 +165,7 @@ export class App {
                     }
                 ],
                 showFooter: false,
-                showHeader: !Strings.TileCompact,
+                showHeader: false,
                 titleFields: ["Title"],
                 subTitleFields: ["ServiceId"],
                 onBodyRendered: (el, item: IListItem) => {

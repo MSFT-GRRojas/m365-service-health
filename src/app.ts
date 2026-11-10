@@ -192,48 +192,6 @@ export class App {
                     }
                 }
             },
-            subNavigation: {
-                onRendering: props => {
-                    props.className = "navbar-sub rounded-bottom";
-                },
-                onRendered: (el) => {
-                    el.querySelector("nav.navbar").classList.remove("bg-light");
-                },
-                itemsEnd: [
-                    {
-                        text: "Filter Services",
-                        onRender: (el, item) => {
-                            // Clear the existing button
-                            el.innerHTML = "";
-                            // Create a span to wrap the icon in
-                            let span = document.createElement("span");
-                            span.className = "bg-white d-inline-flex ms-2 rounded";
-                            el.appendChild(span);
-
-                            // Render a tooltip
-                            Components.Tooltip({
-                                el: span,
-                                content: item.text,
-                                placement: Components.TooltipPlacements.Right,
-                                btnProps: {
-                                    // Render the icon button
-                                    className: "p-1 pe-2",
-                                    iconClassName: "me-1",
-                                    iconType: filterSquare,
-                                    iconSize: 24,
-                                    isSmall: true,
-                                    text: "Filters",
-                                    type: Components.ButtonTypes.OutlineSecondary,
-                                    onClick: () => {
-                                        // Show the filter
-                                        dashboard.showFilter();
-                                    }
-                                },
-                            });
-                        }
-                    }
-                ]
-            },
             tiles: {
                 items: DataSource.getFilteredItems(),
                 bodyFields: ["ServiceStatus"],
@@ -250,7 +208,6 @@ export class App {
                         name: "Status"
                     }
                 ],
-                filterFields: ["Rank", "Status"],
                 showFooter: false,
                 showHeader: !Strings.TileCompact,
                 titleFields: ["Title"],

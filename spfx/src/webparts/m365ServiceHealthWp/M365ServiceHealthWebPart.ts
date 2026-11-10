@@ -1,5 +1,9 @@
 import { DisplayMode, Environment, Version } from '@microsoft/sp-core-library';
-import { IPropertyPaneConfiguration, IPropertyPaneDropdownOption, PropertyPaneDropdown, PropertyPaneHorizontalRule, PropertyPaneLabel, PropertyPaneLink, PropertyPaneSlider, PropertyPaneTextField, PropertyPaneToggle } from '@microsoft/sp-property-pane';
+import {
+  IPropertyPaneConfiguration, IPropertyPaneDropdownOption, IPropertyPaneField, PropertyPaneDropdown,
+  PropertyPaneHorizontalRule, PropertyPaneLabel, PropertyPaneLink, PropertyPaneSlider, PropertyPaneTextField,
+  PropertyPaneToggle
+} from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart, WebPartContext } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'M365ServiceHealthWebPartStrings';
@@ -10,7 +14,7 @@ export interface IM365ServiceHealthWebPartProps {
   moreInfo: string;
   moreInfoTooltip: string;
   onlyTiles: boolean;
-  showServices: string;
+  services: string[];
   tileColumnSize: number;
   tileCompact: boolean;
   tilePageSize: number;
@@ -22,13 +26,11 @@ export interface IM365ServiceHealthWebPartProps {
 
 // Reference the solution
 import "main-lib";
-import { IBasePropertyPane } from 'gd-sprest-bs/src/propertyPane/types';
 declare const M365ServiceHealth: {
   description: string;
   getLogo: () => SVGImageElement;
   getServices: () => Map<string, string>;
   listName: string;
-  propertyPaneServices: (key: string, label: string, properties: IM365ServiceHealthWebPartProps) => IBasePropertyPane;
   render: (props: {
     el: HTMLElement;
     context?: WebPartContext;
@@ -40,7 +42,7 @@ declare const M365ServiceHealth: {
     moreInfoTooltip?: string;
     onLoaded?: () => void;
     onlyTiles?: boolean;
-    showServices?: string;
+    showServices?: string[];
     tileColumnSize?: number;
     tileCompact?: boolean;
     tilePageSize?: number;
@@ -94,7 +96,7 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
       moreInfo: this.properties.moreInfo,
       moreInfoTooltip: this.properties.moreInfoTooltip,
       onlyTiles: this.properties.onlyTiles,
-      showServices: this.properties.showServices,
+      showServices: this.properties.services,
       tileColumnSize: this.properties.tileColumnSize,
       tileCompact: this.properties.tileCompact,
       tilePageSize: this.properties.tilePageSize,
@@ -123,10 +125,10 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
   // Add the logo to the PropertyPane Settings panel
   protected onPropertyPaneRendered(): void {
     const setLogo = setInterval(() => {
-      let closeBtn = document.querySelectorAll("div.spPropertyPaneContainer div[aria-label='M365 Service Health property pane'] button[data-automation-id='propertyPaneClose']");
+      const closeBtn = document.querySelectorAll("div.spPropertyPaneContainer div[aria-label='M365 Service Health property pane'] button[data-automation-id='propertyPaneClose']");
       if (closeBtn) {
-        closeBtn.forEach((el: HTMLElement) => {
-          let parent = el.parentElement;
+        closeBtn.forEach((el) => {
+          const parent = el.parentElement;
           if (parent && !(parent.firstChild as HTMLElement).classList.contains("logo")) { parent.prepend(M365ServiceHealth.getLogo()) }
         });
         clearInterval(setLogo);
@@ -148,6 +150,42 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
   }
 
   protected get disableReactivePropertyChanges(): boolean { return true; }
+
+  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+    if (propertyPath.indexOf("Service") === 0) {
+      const key = propertyPath.substring(7);
+      this.properties.services = this.properties.services || [];
+      if (newValue) {
+        // Add the value
+        this.properties.services.push(key);
+      } else {
+        const idx = this.properties.services.indexOf(key);
+        if (idx >= 0) {
+          // Remove the value
+          this.properties.services.splice(idx, 1);
+        }
+      }
+    }
+  }
+
+  private generateServiceFields(): IPropertyPaneField<any>[] {
+    const fields: IPropertyPaneField<any>[] = [];
+
+    // Parse the services
+    this._serviceOptions.forEach(service => {
+      // Append the service field
+      fields.push(PropertyPaneToggle("Service" + service.key, {
+        label: service.text,
+        key: service.key,
+        onText: "This service will be displayed",
+        offText: "This service will not be displayed",
+        checked: this.properties.services?.indexOf(service.key as string) >= 0
+      }));
+    });
+
+    // Return the fields
+    return fields;
+  }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -187,9 +225,16 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel,
                   description: strings.TitleFieldDescription
-                }),
-                M365ServiceHealth.propertyPaneServices("showServices", strings.ShowServicesFieldLabel, this.properties)
+                })
               ]
+            }
+          ]
+        },
+        {
+          groups: [
+            {
+              groupName: "Services to Display",
+              groupFields: this.generateServiceFields()
             }
           ]
         },

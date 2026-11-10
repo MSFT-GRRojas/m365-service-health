@@ -122,10 +122,10 @@ export default class M365ServiceHealthWebPart extends BaseClientSideWebPart<IM36
   // Add the logo to the PropertyPane Settings panel
   protected onPropertyPaneRendered(): void {
     const setLogo = setInterval(() => {
-      let closeBtn = document.querySelectorAll("div.spPropertyPaneContainer div[aria-label='M365 Service Health property pane'] button[data-automation-id='propertyPaneClose']");
+      const closeBtn = document.querySelectorAll("div.spPropertyPaneContainer div[aria-label='M365 Service Health property pane'] button[data-automation-id='propertyPaneClose']");
       if (closeBtn) {
         closeBtn.forEach((el: HTMLElement) => {
-          let parent = el.parentElement;
+          const parent = el.parentElement;
           if (parent && !(parent.firstChild as HTMLElement).classList.contains("logo")) { parent.prepend(M365ServiceHealth.getLogo()) }
         });
         clearInterval(setLogo);

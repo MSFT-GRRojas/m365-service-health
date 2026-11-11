@@ -4,3 +4,7 @@ The M365 Service Health app gives non-administrative users a clear, easy-to-use 
 ## Prerequisites
 Entra App Registration with the following API permissions consented on behalf the tenant:
   - ServiceHealth.Read.All
+
+## [Installation Guide](Installation/Installation.md)
+
+## User Guide (coming soon)

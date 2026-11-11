@@ -52,3 +52,20 @@ The DoD packages will target the appropriate graph endpoints.
 
 #### Higher Impact Levels
 
+For higher impace levels, it is important **before** you try to import the zip file containing the **Flow**, you'll need to follow these instructions: 
+ - Extract the zip file
+ - Double-click the **Microsoft.Flow** folder
+ - Double-click the **flows** folder
+ - Double-click the **<GUID>** folder
+ - Open the **definitions.json** file with a text editor
+
+ > [IMPORTANT]
+> There will be 3 URLs and 3 IDs (list IDs) that you will need to update to properly import the flow into your environment.
+1. Site URL that will host the M365 Service Health App
+2. The list ID of the list created during the [Install](#install-list) process. To obtain the List ID, open the list, click List settings.  Locate the List ID at the end of the URL.  The actual "ID" is between **%7B** and **%7D**.
+
+- In the definition.json file, locate the first of three **OpenApiConnection** sections.
+- Replace the URL in the "dataset" line with your Site URL from #2 above.
+- Replace the `<GUID>` in the "table" line with the List ID from #2 above. 
+3. Repeat for the two other **OpenAPIConnection** sections in the definition.json file.
+4. Save the file.

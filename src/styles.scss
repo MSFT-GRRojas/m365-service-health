@@ -1,0 +1,68 @@
+/** Custom Styles Go Here */
+.bs {
+    .btn-link {
+        min-width: 4rem;
+    }
+    .card {
+        --bs-card-border-width: 2px;
+        --bs-card-spacer-y: .5rem;
+        --bs-card-title-spacer-y: 1.25rem;
+        min-height: 12.5rem;
+    }
+    .card-text p.small, .card-title {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+    .card-title {
+        border-bottom: 1px solid var(--sp-neutral-quaternary, #d2d0ce);
+        padding-bottom: .25rem;
+        -webkit-line-clamp: 1;
+    }
+    .header a.btn-link {
+        text-decoration: none;
+    }
+    .issue-title {
+        vertical-align: super;
+    }
+    .row {
+        --bs-gutter-x: 1rem;
+    }
+    .text-blue {
+        color: var(--sp-blue, #0078d4) !important;
+    }
+    .card.compact {
+        --bs-card-spacer-x: .5rem;
+        --bs-card-spacer-y: .25rem;
+        --bs-card-title-spacer-y: .25rem;
+        min-height: unset;
+        .card-body {
+            background-color: color-mix(in srgb, var(--sp-black, #000000), transparent 95%);
+            .card-title {
+                padding-bottom: .1rem;
+            }
+        }
+    }
+}
+
+#m365-service-health > .dashboard #tiles .tiles-pagination ul.pagination {
+    margin-bottom: 0;
+}
+
+/* Fix icon alignment inside nav item buttons */
+#navbar_content ul.navbar-nav li.nav-item a.btn svg {
+    margin: .1rem .25rem .088rem -.25rem;
+}
+
+nav.footer #navbar_content {
+    height: 1.5rem;
+}
+
+/* Set styling for navbar-sub */
+nav.navbar-sub {
+    background-color: color-mix(in srgb, var(--sp-black, #000000), transparent 95%);
+    border: 2px solid var(--sp-neutral-quaternary);
+    border-top: 0;
+    border-radius: 0 0 .25rem .25rem;
+}

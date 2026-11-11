@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "m365-service-health",
+    "id": "a57dae0b-0614-4f78-9c7f-e017eb4b5df8",
+    "version": "0.0.8.9",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "iconPath": "images/AppIcon.png",
+    "developer": {
+      "name": "Dade Register <Dade.R@microsoft.com>",
+      "websiteUrl": "https://github.com/spsprinkles/m365-service-health/",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "A webpart showing M365 Service Health for all users."
+      },
+      "longDescription": {
+        "default": "The M365 Service Health app is a solution that reads service health data from a SharePoint list and presents it to all users with an intuitive interface."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "m365-service-health Feature",
+        "description": "The feature that activates elements of the m365-service-health solution.",
+        "id": "b258522d-5804-4c72-af43-24811a456e02",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "../../dist/m365-service-health.sppkg"
+  }
+}
